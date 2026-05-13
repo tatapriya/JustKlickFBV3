@@ -1,8 +1,9 @@
-from django.urls import path
-from . import views
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import CategoryViewSet, ListingViewSet
 
-urlpatterns = [
-    path("categories/", views.category_list, name="category-list"),
-    path("listings/", views.listing_list, name="listing-list"),
-    path("listings/<int:pk>/", views.listing_detail, name="listing-detail"),
-]
+router = DefaultRouter()
+router.register(r"categories", CategoryViewSet, basename="category")
+router.register(r"listings", ListingViewSet, basename="listing")
+
+urlpatterns = router.urls

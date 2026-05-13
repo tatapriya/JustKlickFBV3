@@ -34,7 +34,17 @@ export default function Login() {
       });
 
       localStorage.setItem("authToken", response.data.token);
-      localStorage.setItem("authUser", JSON.stringify(response.data.user));
+
+      const userData = {
+        ...response.data.user,
+        is_staff: response.data.user.is_staff,
+      };
+
+      localStorage.setItem(
+        "authUser",
+        JSON.stringify(userData)
+      );
+
       localStorage.setItem("isLoggedIn", "true");
 
       // Remove old frontend-only login data
@@ -50,9 +60,9 @@ export default function Login() {
 
       setError(
         err.response?.data?.non_field_errors?.[0] ||
-          err.response?.data?.detail ||
-          err.response?.data?.message ||
-          "Invalid email or password"
+        err.response?.data?.detail ||
+        err.response?.data?.message ||
+        "Invalid email or password"
       );
     } finally {
       setLoading(false);

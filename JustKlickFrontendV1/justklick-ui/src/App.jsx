@@ -3,7 +3,9 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import FloatingSideButtons from "./components/FloatingSideButtons";
+import ScrollToTop from "./components/ScrollToTop";
 
+// -------------------- Pages --------------------
 import Home from "./pages/Home";
 import CategoryListingPage from "./pages/CategoryListingPage";
 import CategoryPage from "./pages/CategoryPage";
@@ -18,21 +20,29 @@ import ComparePage from "./pages/ComparePage";
 import DownloadApp from "./pages/DownloadApp";
 import About from "./pages/About";
 
-import ScrollToTop from "./components/ScrollToTop";
+// -------------------- Admin --------------------
+import AdminLayout from "./admin/layouts/AdminLayout";
+import Dashboard from "./admin/pages/Dashboard";
+import Listings from "./admin/pages/Listings";
+import Categories from "./admin/pages/Categories";
+import Users from "./admin/pages/Users";
+import Enquiries from "./admin/pages/Enquiries";
+
 
 export default function App() {
   return (
     <>
       <Navbar />
       <ScrollToTop />
-
-      {/* Right side student action buttons */}
       <FloatingSideButtons />
 
       <main className="min-h-screen">
-        <Routes>
-          <Route path="/" element={<Home />} />
 
+        <Routes>
+
+          {/* -------------------- PUBLIC ROUTES -------------------- */}
+
+          <Route path="/" element={<Home />} />
           <Route path="/categories" element={<Home />} />
 
           <Route
@@ -47,9 +57,7 @@ export default function App() {
 
           <Route path="/wishlist" element={<WishlistPage />} />
           <Route path="/profile" element={<Profile />} />
-
           <Route path="/enquiry" element={<Enquiry />} />
-
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/contact" element={<ContactPage />} />
@@ -58,9 +66,23 @@ export default function App() {
           <Route path="/download-app" element={<DownloadApp />} />
           <Route path="/about" element={<About />} />
 
-          
+          {/* -------------------- ADMIN ROUTES (FIXED STRUCTURE) -------------------- */}
+
+          <Route path="/admin" element={<AdminLayout />}>
+
+            {/* Dashboard (default page) */}
+            <Route index element={<Dashboard />} />
+
+            {/* Admin Modules */}
+            <Route path="listings" element={<Listings />} />
+            <Route path="categories" element={<Categories />} />
+            <Route path="users" element={<Users />} />
+            <Route path="/admin/enquiries" element={<Enquiries />} />
+
+          </Route>
 
         </Routes>
+
       </main>
 
       <Footer />
